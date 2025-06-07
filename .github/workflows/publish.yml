@@ -16,6 +16,8 @@ env:
   GCI_VER: v1.64.8
   GOIMPORTS_VER: v0.34.0
   IMAGE_NAME: note-pulse-builder
+  DOCKER_BUILDKIT: 1
+  COMPOSE_DOCKER_CLI_BUILD: 1
 
 jobs:
   build:
@@ -26,27 +28,27 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: docker/setup-buildx-action@v3
-    
+
       # NEW: register emulators
-      - uses: docker/setup-qemu-action@v3        # <-- add this line
-    
+      - uses: docker/setup-qemu-action@v3
+
       - name: owner to lowercase
         id: vars
         run: echo "owner_lc=${GITHUB_REPOSITORY_OWNER,,}" >> "$GITHUB_OUTPUT"
-    
+
       - name: Log in to GHCR
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-        
+
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
-          platforms: linux/amd64,linux/arm64          # <-- multi-arch line
+          platforms: linux/amd64,linux/arm64
           tags: |
             ghcr.io/${{ steps.vars.outputs.owner_lc }}/${{ env.IMAGE_NAME }}:go${{ env.GO_VERSION }}-alpine
             ghcr.io/${{ steps.vars.outputs.owner_lc }}/${{ env.IMAGE_NAME }}:latest
