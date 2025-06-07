@@ -20,6 +20,12 @@ ARG GOIMPORTS_VER=v0.34.0
 
 FROM golang:${GO_VERSION}-alpine AS builder
 
+# make the build-args visible in this stage
+ARG GO_VERSION
+ARG SWAG_VER
+ARG GCI_VER
+ARG GOIMPORTS_VER
+
 LABEL org.opencontainers.image.source="https://github.com/joobypm/note-pulse-build-images" \
       org.opencontainers.image.description="Reusable build environment for the Note-Pulse project"
 
