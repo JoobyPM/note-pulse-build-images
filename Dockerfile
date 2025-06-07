@@ -32,7 +32,7 @@ LABEL org.opencontainers.image.source="https://github.com/joobypm/note-pulse-bui
 # ─────────────────────────────────────────────────────────────────────────────
 # Minimal tool-box - keep the image tiny
 # ─────────────────────────────────────────────────────────────────────────────
-RUN apk add --no-cache git bash
+RUN apk add --no-cache git bash make
 
 # Install project tooling.  
 # BuildKit's module cache keeps subsequent builds ⚡ fast.
