@@ -8,7 +8,7 @@
 #      docker build \
 #        --build-arg GO_VERSION=1.24.2 \
 #        --build-arg GCI_VER=v1.64.8 \
-#        -t ghcr.io/JoobyPM/note-pulse-build-images:go1.24.2-alpine .
+#        -t ghcr.io/joobypm/note-pulse-build-images:go1.24.2-alpine .
 ###############################################################################
 
 ########## overridable pins ###################################################
@@ -20,7 +20,7 @@ ARG GOIMPORTS_VER=v0.34.0
 
 FROM golang:${GO_VERSION}-alpine AS builder
 
-LABEL org.opencontainers.image.source="https://github.com/JoobyPM/note-pulse-build-images" \
+LABEL org.opencontainers.image.source="https://github.com/joobypm/note-pulse-build-images" \
       org.opencontainers.image.description="Reusable build environment for the Note-Pulse project"
 
 # ─────────────────────────────────────────────────────────────────────────────

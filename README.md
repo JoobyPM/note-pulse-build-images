@@ -1,14 +1,14 @@
 # 🛠️ Note-Pulse - Builder Image
 
 A lean Alpine container that ships the exact tool-chain expected by the
-[Note-Pulse](https://github.com/JoobyPM/note-pulse) application.
+[Note-Pulse](https://github.com/joobypm/note-pulse) application.
 
-| Tool                    | Default           | Override with `--build-arg`       |
-|-------------------------|-------------------|------------------------------------|
-| **Go**                  | `1.24.2`          | `GO_VERSION`                       |
-| **swag** (OpenAPI)      | `v1.16.4`         | `SWAG_VER`                         |
-| **golangci-lint**       | `v1.64.8`         | `GCI_VER`                          |
-| **goimports**           | `v0.34.0`         | `GOIMPORTS_VER`                    |
+| Tool               | Default   | Override with `--build-arg` |
+| ------------------ | --------- | --------------------------- |
+| **Go**             | `1.24.2`  | `GO_VERSION`                |
+| **swag** (OpenAPI) | `v1.16.4` | `SWAG_VER`                  |
+| **golangci-lint**  | `v1.64.8` | `GCI_VER`                   |
+| **goimports**      | `v0.34.0` | `GOIMPORTS_VER`             |
 
 ## Why a dedicated image?
 
@@ -20,10 +20,10 @@ A lean Alpine container that ships the exact tool-chain expected by the
 
 ```bash
 # Pull the ready-made image
-docker pull ghcr.io/JoobyPM/note-pulse-build-images:go1.24.2-alpine
+docker pull ghcr.io/joobypm/note-pulse-build-images:go1.24.2-alpine
 
 # Use it in your multi-stage Dockerfile
-FROM ghcr.io/JoobyPM/note-pulse-build-images:go1.24.2-alpine AS builder
+FROM ghcr.io/joobypm/note-pulse-build-images:go1.24.2-alpine AS builder
 # ... project build steps ...
 
 # Build locally with a newer linter

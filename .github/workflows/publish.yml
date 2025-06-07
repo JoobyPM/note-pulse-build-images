@@ -21,12 +21,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      packages: write          # needed to push to GHCR
+      packages: write
 
     steps:
       - uses: actions/checkout@v4
-
       - uses: docker/setup-buildx-action@v3
+
+      # 1. Make the owner lowercase
+      - name: owner to lowercase
+        id: vars
+        run: echo "owner_lc=${GITHUB_REPOSITORY_OWNER,,}" >> "$GITHUB_OUTPUT"
 
       - name: Log in to GHCR
         uses: docker/login-action@v3
@@ -35,14 +39,15 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build & push
+      # 2. Use the lowercase owner in the tag list
+      - name: Build and push
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:go${{ env.GO_VERSION }}-alpine
-            ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:latest
+            ghcr.io/${{ steps.vars.outputs.owner_lc }}/${{ env.IMAGE_NAME }}:go${{ env.GO_VERSION }}-alpine
+            ghcr.io/${{ steps.vars.outputs.owner_lc }}/${{ env.IMAGE_NAME }}:latest
           build-args: |
             GO_VERSION=${{ env.GO_VERSION }}
             SWAG_VER=${{ env.SWAG_VER }}
